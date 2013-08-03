@@ -17,6 +17,9 @@
         shadow: 'http://labs.google.com/ridefinder/images/mm_20_shadow.png'
       }
     };
+    
+    var directionDisplay;
+    var directionsService = new google.maps.DirectionsService();
 
     function load() {
       var map = new google.maps.Map(document.getElementById("map"), {
@@ -24,11 +27,13 @@
         zoom: 13,
         mapTypeId: 'roadmap'
       });
+      directionsDisplay = new google.maps.DirectionsRenderer();
+      directionsDisplay.setMap(map);
       var infoWindow = new google.maps.InfoWindow;
  <?php
 	     require_once('functions.php');
 		 connectdb();
-         $query = "SELECT * from cities ";
+         $query = "SELECT * from cities where city_name = 'Mumbai' or city_name='Delhi'";
 		 $result = mysql_query($query);
 ?>
 <?php 
@@ -48,15 +53,25 @@
                         shadow: icon.shadow
                      });
                     bindInfoWindow(marker, map, infoWindow, html);
+                    calcRoute("Mumbai, Maharashtra", "Delhi");
  <?php    
                 }
                 echo '$(".typeahead").typeahead({source : city})';
  ?> 
-
-
-      // Change this depending on the name of your PHP file
-        
     }
+
+    function calcRoute(start, end) {
+        var request = {
+            origin:start, 
+            destination:end,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        };
+        directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+          }
+        });
+  }
 
     function bindInfoWindow(marker, map, infoWindow, html) {
       google.maps.event.addListener(marker, 'click', function() {
@@ -83,14 +98,13 @@
 
     function doNothing() {}
 
-    //]]>
 
   </script>
 
   </head>
 
   <body onload="load()">
-    <div id="map" style="width: 500px; height: 300px"></div>
+    <div id="map" style="width: 1400px; height: 700px"></div>
   </body>
 
 </html>
