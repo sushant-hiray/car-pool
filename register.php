@@ -53,7 +53,7 @@ include("header.php");
         else if(isset($_GET['registered']))
           echo("<div class=\"alert alert-success\">\nYou have been registered successfully! Login to continue.\n</div>");
         else if(isset($_GET['exists']))
-          echo("<div class=\"alert alert-error\">\nUser already exists! Please select a different username.\n</div>");
+          echo("<div class=\"alert alert-error\">\nEmail already exists! Please select a different username.\n</div>");
         else if(isset($_GET['nerror']))
           echo("<div class=\"alert alert-error\">\nPlease enter all the details asked before you can continue!\n</div>");
       ?>
