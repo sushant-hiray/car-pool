@@ -88,12 +88,13 @@ include('menu.php');
       		<br/>
 			<form method="post" action="update.php" >
 				<input type="hidden" name="action" value="shareride" />
+				<input type="hidden" id="total" name="totalRequests" value=0 />
        		    <input type="text" id="From" name="from" data-provide="typeahead" class="typeahead" placeholder="Source" required/><br/>
        		    <div class="inputs">
                      </div>
     	    	<input type="text" id="To" name="to" data-provide="typeahead" class="typeahead" placeholder="Destination"  required/><br/>
     	    	<div class="btn-group">
-                    <button class="btn" id ="add">Add Via</button>
+                    <button class="btn" id ="add">Add Via Routes</button>
                     <button class="btn" id="remove">Delete Via</button>
                     <button class="btn" id="reset">Reset Via </button>
                     <button class="btn" id="CheckOnMap" onclick="RefreshMap()">Refresh Map</button>
@@ -102,7 +103,7 @@ include('menu.php');
 		<br/><br/>
     	    	Start Time of your ride:
 	      			<div id="uptimepicker" class="input-append date">
-				      <input type="text" name="uptime"></input>
+				      <input type="text" name="uptime" required></input>
 				      <span class="add-on">
 				        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
 				      </span>
@@ -242,8 +243,9 @@ include('menu.php');
     function doNothing() {}
 
     			i = $('.inputs').size();	
-				var nameName = "dyanmic" + i;	
+					
 				$('#add').click(function() {
+					var nameName = "dynamic" + i;
 						$('<div><input type="text"data-provide="typeahead"   class="field" placeholder="Hop " +"' +i+'" name="'+ nameName+'"   value="" /></div>').fadeIn('slow').appendTo('.inputs');
                         
                         $(".field").typeahead({source : city});
