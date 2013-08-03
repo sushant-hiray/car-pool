@@ -48,7 +48,8 @@
                     <a class="btn btn-info" href="index.php" role="button">CarPool Home</a>
                 </div>
               </div>
-        </div>  
+        </div> 
+        </header> 
       </div> 
 
       <!-- Begin page content -->
