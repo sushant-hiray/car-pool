@@ -5,14 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="http://code.jquery.com/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
     </head>
     <body>
 			<h1>Plan a Tour!</h1>
 				<div id="response"></div>
 
 			<form method="post" action="save_comment.php">
+        <?php
+	        require_once('functions.php');
+				connectdb();
+                $query = "SELECT city_name from cities";
+				$result = mysql_query($query);
+        ?>
 							
-				<div><input type="text" name="From" placeholder="From" value=""/></div>
+<?php 
+                echo '<input type="text" data-provide="typeahead" class="typeahead">';
+                echo "<script>var city = new Array();";
+                while($row = mysql_fetch_array($result)){
+                    //echo '<option value="' . $row["city_name"]. '"> ' . $row["city_name"].'</option>';
+                    echo 'city.push("' . $row["city_name"]. '");';
+                }
+                echo '$(".typeahead").typeahead({source : city})';
+                echo "</script>"
+        ?> 
+
 					<div class="inputs">
 				 </div>
 				<div><input type="text" name="To" placeholder="To" value=""/></div>
@@ -27,8 +45,6 @@
 				</div>
 
 
-    <script src="http://code.jquery.com/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
      <script  >
 		$(document).ready(function(){
 		
