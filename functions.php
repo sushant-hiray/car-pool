@@ -27,4 +27,12 @@ function randomNum($length){
 function loggedin() {
   return isset($_SESSION['username']);
 }
+function getUserid(){
+  $emailid=$_SESSION['username'];
+  $query="SELECT uid,name from users where email='".$emailid."'";
+  $result = mysql_query($query);
+  $fields = mysql_fetch_array($result);
+  $uid=$fields['uid'];
+  return $uid;
+}
 ?>

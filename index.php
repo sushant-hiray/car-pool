@@ -11,8 +11,8 @@
 ?>
 <div class="container">
 	<?php
-        if(isset($_GET['changed']))
-          echo("<div class=\"alert alert-info\">\nAccount details changed successfully!\n</div>");
+        if(isset($_GET['share']))
+          echo("<div class=\"alert alert-info\">\nYour Ride was succesfully added! You can edit it from your profile\n</div>");
         else if(isset($_GET['nerror']))
           echo("<div class=\"alert alert-error\">\nPlease enter all the details asked before you can continue!\n</div>");
       ?>
@@ -64,7 +64,7 @@ include('menu.php');
 			<h2 align="center"><small>Latest Car Pools</small></h2>
 			<?php
 						$today = date("Y-m-d H:i:s");
-						$query="SELECT `from` , `to` , `uptime` , `vehicle`, `downtime` from offers where uptime > '".$today."'";
+						$query="SELECT `from` , `to` , `uptime` , `vehicle` from offers where uptime > '".$today."'";
 						$result = mysql_query($query);
 						if(mysql_num_rows($result)==0){
 		          	    	echo("<p align='center'>No Upcoming car pools are scheduled currently :( </p>\n");
@@ -73,11 +73,11 @@ include('menu.php');
 							}
 		          	  	else {
 							echo '<table id="upcominglist" class="table table-hover">
-								<thead><tr> <th>Vehicle Type</th> <th> From </th> <th> To </th> <th> Time Range </th></tr></thead>
+								<thead><tr> <th>Vehicle Type</th> <th> From </th> <th> To </th> <th> Starting Time</th></tr></thead>
 								<tbody>';
 									
 							while($row = mysql_fetch_array($result)) {
-								echo "<tr><td>".$row['vehicle']."</td><td>".$row['from']."</td><td>".$row['to']."</td><td>".$row['uptime']."-".$row['downtime']."</td></tr>";
+								echo "<tr><td>".$row['vehicle']."</td><td>".$row['from']."</td><td>".$row['to']."</td><td>".$row['uptime']."</td></tr>";
 							}
 						}
 					?>
