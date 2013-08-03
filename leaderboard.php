@@ -24,13 +24,13 @@ include('menu.php');
 		<div class="span3"></div>
 		<div class="span6"> 
 			<?php 
-			$query="SELECT * from users ORDER BY credits";
+			$query="SELECT * from users ORDER BY credits DESC";
 			$result=mysql_query($query);
-			echo '<table id="upcominglist" class="table table-hover">
-								<thead><tr> <th>Name</th> <th> Carbon Credits </th></thead>
+			echo '<table id="userlist" class="table table-hover">
+								<thead><tr> <th>Id </th><th>Name</th> <th> Carbon Credits </th></thead>
 								<tbody>';
 			while($row=mysql_fetch_array($result)){
-				echo '<tr><td>'.$row['name'].'</td><td>'.$row['credits'].'</td></tr>';
+				echo '<tr><td>'.$row['uid'].'<td>'.$row['name'].'</td><td>'.$row['credits'].'</td></tr>';
 			}
 
 			?>
@@ -55,4 +55,11 @@ include('menu.php');
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/datetimepicker.js"></script>
+    <script type="text/javascript">
+    $('td:nth-child(1),th:nth-child(1)').hide();
+      $('#userlist').find('tr').click( function(){
+  var row = $(this).find('td:first').text();
+  window.location.href = "profile.php?uid="+row;
+});
+      </script>
 </body></html>

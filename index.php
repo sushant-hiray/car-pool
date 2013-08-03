@@ -65,7 +65,7 @@ include('menu.php');
 			<h2 align="center"><small>Latest Car Pools</small></h2>
 			<?php
 						$today = date("Y-m-d H:i:s");
-						$query="SELECT `from` , `to` , `uptime` , `vehicle` from offers where uptime > '".$today."'";
+						$query="SELECT `id`, `from` , `to` , `uptime` , `vehicle` from offers where uptime > '".$today."'";
 						$result = mysql_query($query);
 						if(mysql_num_rows($result)==0){
 		          	    	echo("<p align='center'>No Upcoming car pools are scheduled currently :( </p>\n");
@@ -73,12 +73,12 @@ include('menu.php');
 								
 							}
 		          	  	else {
-							echo '<table id="upcominglist" class="table table-hover">
-								<thead><tr> <th>Vehicle Type</th> <th> From </th> <th> To </th> <th> Starting Time</th></tr></thead>
+							echo '<table id="upcomingList" class="table table-hover">
+								<thead><tr> <th> Id </th> <th>Vehicle Type</th> <th> From </th> <th> To </th> <th> Starting Time</th></tr></thead>
 								<tbody>';
 									
 							while($row = mysql_fetch_array($result)) {
-								echo "<tr><td>".$row['vehicle']."</td><td>".$row['from']."</td><td>".$row['to']."</td><td>".$row['uptime']."</td></tr>";
+								echo "<tr><td>".$row['id']."</td><td>".$row['vehicle']."</td><td>".$row['from']."</td><td>".$row['to']."</td><td>".$row['uptime']."</td></tr>";
 							}
 						}
 					?>
@@ -108,6 +108,13 @@ include('menu.php');
       $('#downtimepicker').datetimepicker({
         format: 'yyyy-MM-dd hh:mm:ss',
       });
+
+
+      $('td:nth-child(1),th:nth-child(1)').hide();
+      $('#upcomingList').find('tr').click( function(){
+  var row = $(this).find('td:first').text();
+  window.location.href = "ride.php?id="+row;
+});
     </script>
     <?php 
     $query = "SELECT city_name from cities";
