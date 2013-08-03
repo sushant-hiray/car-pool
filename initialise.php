@@ -53,6 +53,13 @@
     `cid` int(11) NOT NULL,
     PRIMARY KEY(`slno`))") or die('Error creating table "notifications".' . mysql_error());
 
+  mysql_query("CREATE TABLE IF NOT EXISTS `comments` (
+    `slno` int(11) NOT NULL AUTO_INCREMENT,
+    `sender` int(11) NOT NULL,
+    `comment` text NOT NULL,
+    `cid` int(11) NOT NULL,
+    PRIMARY KEY(`slno`))") or die('Error creating table "comments".' . mysql_error());
+
   mysql_query("CREATE TABLE IF NOT EXISTS `route` (
     `routeid` int(11) NOT NULL AUTO_INCREMENT,
     `cid` int(11) NOT NULL,
