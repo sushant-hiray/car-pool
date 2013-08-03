@@ -53,17 +53,30 @@
                         shadow: icon.shadow
                      });
                     bindInfoWindow(marker, map, infoWindow, html);
-                    calcRoute("Mumbai, Maharashtra", "Delhi");
+                    waypts =[];
+                     waypts.push({
+                         location:"Kathmandu, Central Region, Nepal",
+                         stopover:true
+                     });
+                    
+                     waypts.push({
+                         location:"Ahmedabad, Gujrat",
+                         stopover:true
+                     });
+        
+                    calcRoute("Mumbai", "Delhi", waypts);
  <?php    
                 }
                 echo '$(".typeahead").typeahead({source : city})';
  ?> 
     }
 
-    function calcRoute(start, end) {
+    function calcRoute(start, end, waypts) {
         var request = {
             origin:start, 
             destination:end,
+            waypoints: waypts,
+            optimizeWaypoints: true,
             travelMode: google.maps.DirectionsTravelMode.DRIVING
         };
         directionsService.route(request, function(response, status) {
