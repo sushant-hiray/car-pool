@@ -6,14 +6,14 @@
 	if(loggedin())
 		header("Location: index.php");
 	else if(isset($_POST['action'])) {
-		$username = mysql_real_escape_string($_POST['username']);
+		$email = mysql_real_escape_string($_POST['email']);
 		if($_POST['action']=='login') {
-			if(trim($username) == "" or trim($_POST['password']) == "")
+			if(trim($email) == "" or trim($_POST['password']) == "")
 				header("Location: login.php?nerror=1"); // empty entry
 			else {
 				// code to login the user and start a session
 				connectdb();
-				$query = "SELECT random,hash FROM users WHERE username='".$username."'";
+				$query = "SELECT random,hash FROM users WHERE email='".$email."'";
 				$result = mysql_query($query);
 				$fields = mysql_fetch_array($result);
 				$currhash = crypt($_POST['password'], $fields['random']);
@@ -69,18 +69,16 @@ include("header.php");
       <p>Please login to continue.</p><br/>
       <form method="post" action="login.php">
         <input type="hidden" name="action" value="login"/>
-        Username: <input type="text" name="username"/><br/>
+        Email Id: <input type="text" name="email"/><br/>
         Password: <input type="password" name="password"/><br/><br/>
         <input class="btn" type="submit" name="submit" value="Login"/>
       </form>
       <hr/>
-      <form method="post" action="login.php">
+      <form>
         <input type="hidden" name="action" value="ldaplogin"/>
         <h1><small>New User? Register now</small></h1>
-        <h3><small> Login through your LDAP once! </small></h3>
-        LDAP Username: <input type="text" name="username" required/><br/>
-        LDAP Password: <input type="password" name="password" required/><br/>
-        <input class="btn btn-primary" type="submit" name="submit" value="Register"/>
+        <a href="register.php" class="btn btn-info" role="button"> Register </a>
+    </form>
     </div> <!-- /container -->
 
 <?php
