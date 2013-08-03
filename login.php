@@ -18,7 +18,7 @@
 				$fields = mysql_fetch_array($result);
 				$currhash = crypt($_POST['password'], $fields['random']);
 				if($currhash == $fields['hash']) {
-					$_SESSION['username'] = $username;
+					$_SESSION['username'] = $email;
 					header("Location: index.php");
 
 				} else
