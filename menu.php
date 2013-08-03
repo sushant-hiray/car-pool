@@ -18,13 +18,13 @@
           <ul class="nav">
             <li><a href="index.php"><i class="icon-home"></i> Home</a></li>
             <li class="divider-vertical"></li>
-            <li><a href="event.php"><i class="icon-th-list"></i> Share your ride</a></li>
+            <li><a href="shareride.php"><i class="icon-th-list"></i> Share your ride</a></li>
             <li class="divider-vertical"></li>
-            <li><a href="problem.php"><i class="icon-pencil"></i> Get ride</a></li>
+            <li><a href="getride.php"><i class="icon-pencil"></i> Get ride</a></li>
             <li class="divider-vertical"></li>
-            <li><a href="scorecard.php"><i class="icon-list"></i> Notification</a></li>
+            <li><a href="notification.php"><i class="icon-list"></i> Notification</a></li>
             <li class="divider-vertical"></li>
-            <li><a href="leaderboard.php"><i class="icon-wrench"></i> Profile</a></li>
+            <li><a href="profile.php"><i class="icon-wrench"></i> Profile</a></li>
             <li class="divider-vertical"></li>
             <li><a href="logout.php"><i class="icon-off"></i> Bye</a></li>
           </ul>
