@@ -26,7 +26,8 @@ include('menu.php');
 			<h2 align="center"><small>Search for a ride</small></h2>
 			<hr>
       		<br/>
-			<form id="search">
+			<form action="getride.php" method="post" >
+				<input type="hidden" name="action" value="search" />
        		    <input type="text" name="from" data-provide="typeahead" class="typeahead" placeholder="Source" required/><br/>
     	    	<input type="text" name="to" data-provide="typeahead" class="typeahead" placeholder="Destination"  required/><br/>
     	    	Time Range for hoping in your ride: <br/>
