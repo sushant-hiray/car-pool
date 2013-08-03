@@ -21,12 +21,12 @@
     // create the users table
     mysql_query("CREATE TABLE IF NOT EXISTS `users` (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(25) NOT NULL,
+  `name` varchar(25) NOT NULL,
   `random` varchar(6) NOT NULL,
   `hash` varchar(80) NOT NULL,
   `email` varchar(100) NOT NULL,
   `gender` varchar(10) NOT NULL,
-  `contactno` int(11) NOT NULL,
+  `contactno` bigint(50) NOT NULL,
   `description` text,
   PRIMARY KEY (`uid`)
   )") or die('Error creating table users;' . mysql_error());
