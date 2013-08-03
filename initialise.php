@@ -28,21 +28,11 @@
   `gender` varchar(10) NOT NULL,
   `contactno` bigint(50) NOT NULL,
   `description` text,
+  `credits` int(11) DEFAULT '0',
   PRIMARY KEY (`uid`)
   )") or die('Error creating table users;' . mysql_error());
 
-   mysql_query("CREATE TABLE IF NOT EXISTS `requests` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) NOT NULL,
-  `from` varchar(250) NOT NULL,
-  `to` varchar(250) NOT NULL,
-  `uptime` datetime NOT NULL,
-  `downtime` datetime NOT NULL,
-  `people` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-)") or die('Error creating table requests;' . mysql_error());
-
-   mysql_query("CREATE TABLE IF NOT EXISTS `offers` (
+  mysql_query("CREATE TABLE IF NOT EXISTS `offers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
   `from` varchar(250) NOT NULL,
@@ -52,8 +42,16 @@
   `people` int(11) NOT NULL DEFAULT '1',
   `price` int(11) NOT NULL DEFAULT '0' ,
   `vehicle` varchar(250) NOT NULL,
-  `smoking` tinyint(1) DEFAULT '0',
+  `description` text,
   PRIMARY KEY (`id`))") or die('Error creating table "offers".' . mysql_error());
+
+  mysql_query("CREATE TABLE IF NOT EXISTS `notifications` (
+    `slno` int(11) NOT NULL AUTO_INCREMENT,
+    `sender` int(11) NOT NULL,
+    `receiver` int(11) NOT NULL,
+    `type` int(11) NOT NULL,
+    `cid` int(11) NOT NULL,
+    PRIMARY KEY(`slno`))") or die('Error creating table "notifications".' . mysql_error());
 
   mysql_query("CREATE TABLE IF NOT EXISTS `route` (
     `routeid` int(11) NOT NULL AUTO_INCREMENT,
