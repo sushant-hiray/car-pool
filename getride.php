@@ -122,14 +122,18 @@ include('menu.php');
           $result=mysql_query($query) or die(mysql_error());
         
            while($row = mysql_fetch_array($result)){
-              $query2="SELECT `vehicle`,`from`,`to`,`uptime` from offers WHERE id='".$row['cid']."'";
+              $query2="SELECT `vehicle`,`from`,`to`,`uptime` from offers WHERE id='".$row['cid']."' AND `uptime` >='".$_POST['uptime']."' AND `uptime` <='".$_POST['downtime']."'";
               $res=mysql_query($query2) or die(mysql_error());
-              $result2=mysql_fetch_array($res);
-
+              if(mysql_num_rows($res)==0){
+              }
+              else{
+                $result2=mysql_fetch_array($res);
+              
               echo "<tr><td>".$result2['vehicle']."</td><td>".$result2['from']."</td><td>".$result2['to']."</td><td>".$result2['uptime']."</td>";
               if($from==$result2['from'] && $to==$result2['to']){echo "<td>Direct</td></tr>";}
                 else{echo "<td>Via</td></tr>";}
-           }
+             }
+          }
 
 
         }
