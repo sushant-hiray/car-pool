@@ -27,8 +27,8 @@ include('menu.php');
 			<hr>
       		<br/>
 			<form id="search">
-       		    <input type="text" name="from" placeholder="Source" required/><br/>
-    	    	<input type="text" name="to" placeholder="Destination"  required/><br/>
+       		    <input type="text" name="from" data-provide="typeahead" class="typeahead" placeholder="Source" required/><br/>
+    	    	<input type="text" name="to" data-provide="typeahead" class="typeahead" placeholder="Destination"  required/><br/>
     	    	Time Range for hoping in your ride: <br/>
     	    	Start Time:
 	      			<div id="uptimepicker" class="input-append date">
@@ -108,4 +108,16 @@ include('menu.php');
         format: 'yyyy-MM-dd hh:mm:ss',
       });
     </script>
+    <?php 
+    $query = "SELECT city_name from cities";
+	$result = mysql_query($query);
+	echo "<script>var city = new Array();";
+                while($row = mysql_fetch_array($result)){
+                    //echo '<option value="' . $row["city_name"]. '"> ' . $row["city_name"].'</option>';
+                    echo 'city.push("' . $row["city_name"]. '");';
+    }
+    echo '$(".typeahead").typeahead({source : city})';
+    echo "</script>"
+
+    ?>
 </body></html>
