@@ -33,20 +33,44 @@ include('menu.php');
 				$contact=$fetch['contactno'];
 				$desc=$fetch['description'];
 				$credits=$fetch['credits'];
+				$id=$_GET['id'];
 				if($gender=="M")$sex="Male";
 				else $sex="Female";
 
+				$badge="Newbie in town";
+				$rank="SELECT uid from users ORDER BY credits DESC";
+				$resul=mysql_query($rank);
+				$num=mysql_num_rows($resul);
+				$top=$num/3;
+				$middle=$top * 2;
+				$i=1;
+				while($row=mysql_fetch_array($resul)){
+					if($row['uid']==$id){
+						if($i<=$top){
+							$badge="Trusted Car Pooler";
+						}
+						else if($i<=$middle){
+							$badge="Budding Car Pooler";
+						}
+						else{
+							$badge="Newbie in town";
+						}
+					}
+					$i++;
+				}
 				echo "<p>Name: &nbsp; <strong>".$name." </strong></p>";
 				echo "<p>Email Id: &nbsp; <strong>".$email."</strong></p>";
 				echo "<p>Gender: &nbsp; <strong>".$sex." </strong></p>";
 				echo "<p>Contact: &nbsp; <strong>".$contact."</strong></p>";
 				echo "<p>Description: &nbsp; <strong>".$desc."</strong></p>";
-				echo "<p>Carbon Credits: &nbsp;<strong>".$credits."</strong><span class='label label-success'>".$badge."</span></p>"; 
+				echo "<p>Carbon Credits: &nbsp;<strong>".$credits." </strong></p>"; 
+				echo "<p>Badge:<span class='label label-success'> &nbsp;".$badge."</span></p>";
 
 			}
 			else{
 				$email=$_SESSION['username'];
 				$query="SELECT * from users where email='".$email."'";
+				$uid=getUserid();
 				$res=mysql_query($query);
 				$fetch=mysql_fetch_array($res);
 				$name=$fetch['name'];
@@ -55,6 +79,27 @@ include('menu.php');
 				$contact=$fetch['contactno'];
 				$desc=$fetch['description'];
 				$credits=$fetch['credits'];
+				$badge="Newbie in town";
+				$rank="SELECT * from users ORDER BY credits DESC";
+				$resul=mysql_query($rank);
+				$num=mysql_num_rows($resul);
+				$top=$num/3;
+				$middle=$top * 2;
+				$i=1;
+				while($row=mysql_fetch_array($resul)){
+					if($row['uid']==$uid){
+						if($i<=$top){
+							$badge="Trusted Car Pooler";
+						}
+						else if($i<=$middle){
+							$badge="Budding Car Pooler";
+						}
+						else{
+							$badge="Newbie in town";
+						}
+					}
+					$i++;
+				}
 				if($gender=="M")$sex="Male";
 				else $sex="Female";
 				echo "<p>Name: &nbsp; <strong>".$name." </strong></p>";
@@ -62,7 +107,8 @@ include('menu.php');
 				echo "<p>Gender: &nbsp; <strong>".$sex." </strong></p>";
 				echo "<p>Contact: &nbsp; <strong>".$contact."</strong></p>";
 				echo "<p>Description: &nbsp; <strong>".$desc."</strong></p>";
-				echo "<p>Carbon Credits: &nbsp;<strong>".$credits."</strong><span class='label label-success'>".$badge."</span></p>"; 
+				echo "<p>Carbon Credits: &nbsp;<strong>".$credits." </strong></p>"; 
+				echo "<p>Badge:<span class='label label-success'> &nbsp;".$badge."</span></p>";
 
 
 
