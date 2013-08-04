@@ -37,7 +37,57 @@ if($type=="1"){
             
             $query = 'UPDATE offers SET people ="' .$noOfPeople .'" WHERE id="' .$cid. '"';
             $result = mysql_query($query) or die("error!!!");
+           
+            $query = 'SELECT * from offers WHERE id="'.$cid.'"';
+            $result = mysql_query($query) or die("error!!!");
+                   
+            $row = mysql_fetch_array($result);
         
+            $source = $row["from"];
+            $dest = $row["to"];
+            
+             $query = 'SELECT * from cities WHERE city_name="'.$source.'"';
+                 
+            $result = mysql_query($query) or die("error!!!");
+                   
+            $row = mysql_fetch_array($result);
+            
+            $sourceLat= $row["latitude"];
+            $sourceLon =$row["longitude"];
+            
+            $query = 'SELECT * from cities WHERE city_name="'.$dest.'"';
+                 
+            $result = mysql_query($query) or die("error!");
+                   
+            $row = mysql_fetch_array($result);
+            
+            $destLat= $row["latitude"]; 
+            $destLon =$row["longitude"];
+
+            $distance = sqrt(pow(((float)$destLat -(float)$sourceLat) , 2)+ pow(((float)$destLon -(float)$sourceLon) , 2)); 
+             
+            $query = 'SELECT credits from users WHERE uid="'.$sender.'"';
+            
+            $result = mysql_query($query) or die("error!!!");
+            $row = mysql_fetch_array($result);
+
+            $senderCredits = (float)($distance) + (float)($row["credits"]);
+            $query = 'UPDATE users SET credits="' .$senderCredits .'" WHERE uid="' .$sender. '"';
+            $result = mysql_query($query) or die("error!!!3");
+
+            /*************************/
+
+            $query = 'SELECT credits from users WHERE uid="'.$receiver.'"';
+            
+            $result = mysql_query($query) or die("error!!!1");
+            $row = mysql_fetch_array($result);
+
+            $receiverCredits = (float)($distance) + (float)($row["credits"]);
+
+            $query = 'UPDATE users SET credits ="' .$receiverCredits .'" WHERE uid="' .$receiver. '"';
+            $result = mysql_query($query) or die("error!!!2");
+            
+
         }
         
 }
