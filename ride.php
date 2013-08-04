@@ -167,7 +167,7 @@ include('menu.php');
           <?php } 
         
         else{
-          echo"<p> The carpool has been archived, you can get to know more about this carpool by contacting the rider </p>";
+          echo"<h3><small> The carpool has been archived, you can get to know more about this carpool by contacting the rider </small></p>";
         }
         
       }
