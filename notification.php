@@ -9,7 +9,7 @@
     require_once('functions.php');
         connectdb();
         //$userId = getUserid();
-        $userId ="2"; 
+        $userId ="1"; 
         $query = 'SELECT * from notifications WHERE receiver="'.$userId.'" ORDER BY timestamp DESC;';
         $result = mysql_query($query) or die("error!!!")  ;
         
@@ -58,6 +58,7 @@
                 $query = 'SELECT * from offers WHERE id="'.$row["cid"].'";';
                 $result1 = mysql_query($query) or die("error!!");
                 $carPoolRow = mysql_fetch_array($result1); 
+                $slno = $row["slno"];
                 echo '<td>'. $carPoolRow["from"] . '=>'. $carPoolRow["to"] . '</td>';   
                 $status = $row["status"];
                 echo '<td>Feedback</td>';
@@ -65,23 +66,85 @@
                     echo '<td>'.$status.'/5<td>';
                 }
                 else{
-                    echo '<td>
-                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> 
-                            <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                            <!-- dropdown menu links -->
-                              <li class="active">hi</li>
-                            </ul>
-                            </div><button class="btn">Submit</button></td>';
+?>
+                       <td> 
+
+                     <div class="btn-group">
+                                <button id ="fartDropDown" class="btn dropdown-toggle" data-toggle="dropdown">Rating <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                  <li><a href="#">1</a></li>
+                                  <li><a href="#">2</a></li>
+                                  <li><a href="#">3</a></li>
+                                  <li><a href="#">4</a></li>
+                                  <li><a href="#">5</a></li>
+                                </ul>
+                      </div><!-- /btn-group -->
+                <?php
+                        $funcAgrsRate = '"RateRequest('.$slno.')"';
+                        echo '<button class="btn"  onclick='.$funcAgrsRate.'>Submit</button> ';
+                        echo '</td>';
                 }
-            echo '</tr>';     
+        echo '</tr>';     
+       }
+        else if($type=="3"){
+            $query = 'SELECT * from offers WHERE id="'.$row["cid"].'";';
+            $result1 = mysql_query($query) or die("error!!");
+            $carPoolRow = mysql_fetch_array($result1); 
+            $status = $row["status"];
+            $cid = $row["cid"];
+            $slno = $row["slno"];
+            $sender=$row["sender"];
+            echo '<td>'. $carPoolRow["from"] . '=>'. $carPoolRow["to"] . '</td>';   
+            echo '<td>Request Status</td>';
+            if($status=="Approved"){
+                echo '<td>Approved, Enjoy the Ride</td>';
+            }
+            else if($status=="Declined"){
+                echo '<td>Declined, :-(</td>';
+            }
+            else{
+                echo 'alert("Some crap piece of shit")';
+            }
+
         }
-    }
+        else if($type=="4"){
+            $query = 'SELECT * from offers WHERE id="'.$row["cid"].'";';
+            $result1 = mysql_query($query) or die("error!!");
+            $carPoolRow = mysql_fetch_array($result1); 
+            $status = $row["status"];
+            $cid = $row["cid"];
+            $slno = $row["slno"];
+            $sender=$row["sender"];
+            echo '<td>'. $carPoolRow["from"] . '=>'. $carPoolRow["to"] . '</td>';   
+            echo '<td>Request Status</td>';
+            echo '<td>Still pending with the rider, Please Come again later</td>';
+
+        }   
+ }   
 ?>
     </tbody>
     </table>
-    <script>
+        
+        <script>
+         $(".dropdown-menu li a").click(function(){
+                var selText = $(this).text();
+                $('#fartDropDown').html(selText);
+        
+         });
+        
+        function RateRequest(slno){ 
+            $rating =    $('#fartDropDown').html();    
+            $.post("updateDBNotifications.php", { type: "2", serialNo: slno, rating: $rating })
+            .done(function(data) {
+            alert("Data Loaded: " + data);
+             location.reload();
+            }); // alert($rating);
+
+        }
+
+
+
+
        function ApproveRequest(slno,stat){
              if(stat=="0"){
            
@@ -92,10 +155,7 @@
             });     
             } 
             else if(stat=="1"){
-                // change the parameter in notification table
-                // create one more notification
-                // update offers
-            $.post("updateDBNotifications.php", { type: "1", serialNo: slno, stat: "Approved" })
+              $.post("updateDBNotifications.php", { type: "1", serialNo: slno, stat: "Approved" })
             .done(function(data) {
             alert("Data Loaded: " + data);
              location.reload();
@@ -106,6 +166,7 @@
             }
     }
 
+      $('.dropdown-toggle').dropdown();
     </script>    
 </body>
 </html>

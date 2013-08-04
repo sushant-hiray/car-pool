@@ -40,12 +40,27 @@ if($type=="1"){
         
         }
         
-    }
+}
+
+else if($type=="2"){
+
 
      // change the parameter in notification table
     // create one more notification
     // update offers
-
+    $query = 'SELECT * from notifications WHERE slno="'.$slno.'"';
+    $result = mysql_query($query) or die("error!!!");
+    $comment = $_POST["rating"];
+    $row = mysql_fetch_array($result);
+    $receiver = $row["receiver"];
+    $cid = $row["cid"];
+    
+        $query = 'INSERT INTO comments(sender,comment,cid) VALUES ("'.$receiver.'","'.$comment.'","'.$cid.'")';
+        $result = mysql_query($query) or die("error!!!");
+    
+        $query = 'DELETE FROM notifications WHERE slno="'.$slno.'"'; 
+        $result = mysql_query($query) or die("error!!!");
     echo "YO man!";
+}
 ?>
 
