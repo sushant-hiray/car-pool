@@ -107,7 +107,7 @@ include('menu.php');
           $cid=$row['id'];
           
       ?>
-<form method="post" action="notification.php">
+<form method="post" action="addCarShare.php">
   Rider: <a href="<?php echo "profile.php?id=".$uid;?>" > <?php echo getName($uid); ?></a> <br/>
   Starting Time of Ride: <?php echo $uptime ?> <br/>
   Rider's Source: <?php echo $from; ?> <br/>
@@ -117,9 +117,13 @@ include('menu.php');
   Type of vehicle: <?php echo $ferry; ?> <br/>
   Brief Description of the car pool: <?php echo $desc; ?> <br/>
   <br/>
-  <h2> <small>Request for this car</small></h2>
+  <?php 
+  $time = date("Y-m-d H:i:s");
+  if($uptime > $time){ ?><h2> <small>Request for this car</small></h2>
     <input type="hidden" id="formfrom" name="from" />
     <input type="hidden" id="formto" name="to" />
+    <input type="hidden" name="uid" value=<?php echo $uid; ?> />
+    <input type="hidden" name="cid" value=<?php echo $cid; ?> />
       <div class="btn-group">
                 <button id="from" class="btn dropdown-toggle" data-toggle="dropdown">From <span class="caret"></span></button>
                 <ul class="dropdown-menu from">
@@ -162,7 +166,11 @@ include('menu.php');
 </form>
           <?php } 
         
-
+        else{
+          echo"<p> The carpool has been archived, you can get to know more about this carpool by contacting the rider </p>";
+        }
+        
+      }
       }
       else{
 echo("<p align='center'>Looks like you have entered an URL you shouldn't have!Please go back to previous page</p>\n");
