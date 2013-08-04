@@ -1,10 +1,28 @@
-<html>
-<head>
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <script src="http://code.jquery.com/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-</head> 
-<body>   
+<?php
+/*
+ * The landing page that lists all the problem
+ */
+	require_once('functions.php');
+	if(!loggedin())
+		header("Location: login.php");
+	else
+		include('header.php');
+		connectdb();
+?>
+<div class="container">
+	<?php
+        if(isset($_GET['share']))
+          echo("<div class=\"alert alert-info\">\nYour Ride was succesfully added! You can edit it from your profile\n</div>");
+        else if(isset($_GET['nerror']))
+          echo("<div class=\"alert alert-error\">\nPlease enter all the details asked before you can continue!\n</div>");
+      ?>
+
+<?php
+include('menu.php');
+?>
+<div class="row-fluid" id="main-content">
+		<div class="span1"></div>
+        <div class="span10">
 <?php
     require_once('functions.php');
         connectdb();
@@ -79,7 +97,7 @@
                                   <li><a href="#">5</a></li>
                                 </ul>
                       </div><!-- /btn-group -->
-                <?php
+ <?php
                         $funcAgrsRate = '"RateRequest('.$slno.')"';
                         echo '<button class="btn"  onclick='.$funcAgrsRate.'>Submit</button> ';
                         echo '</td>';
@@ -125,6 +143,24 @@
     </tbody>
     </table>
         
+</div>
+		<div class="span1"></div>
+</div>
+
+</div>
+<div id="push"></div>
+    </div> <!-- /wrap -->
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">Built with love by <a href="about.php">@sushant @ashish @nilesh.</a></p>
+      </div>
+    </div>
+
+    <!-- javascript files
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
         <script>
          $(".dropdown-menu li a").click(function(){
                 var selText = $(this).text();
@@ -136,7 +172,7 @@
             $rating =    $('#fartDropDown').html();    
             $.post("updateDBNotifications.php", { type: "2", serialNo: slno, rating: $rating })
             .done(function(data) {
-            alert("Data Loaded: " + data);
+            //alert("Data Loaded: " + data);
              location.reload();
             }); // alert($rating);
 
@@ -150,14 +186,14 @@
            
             $.post("updateDBNotifications.php", { type: "1", serialNo: slno, stat: "Declined" })
             .done(function(data) {
-            alert("Data Loaded: " + data);
+            //alert("Data Loaded: " + data);
              location.reload();
             });     
             } 
             else if(stat=="1"){
               $.post("updateDBNotifications.php", { type: "1", serialNo: slno, stat: "Approved" })
             .done(function(data) {
-            alert("Data Loaded: " + data);
+            //alert("Data Loaded: " + data);
              location.reload();
             });     
             }
@@ -168,5 +204,6 @@
 
       $('.dropdown-toggle').dropdown();
     </script>    
+   </body></html> 
 </body>
 </html>
