@@ -21,9 +21,59 @@
 include('menu.php');
 ?>
 <div class="row-fluid" id="main-content">
-		<div class="span3"></div>
-		<div class="span6"></div>
-		<div class="span3"></div>
+		<div class="span5"></div>
+		<div class="span5">
+			<?php if(isset($_GET['id'])){
+				$query="SELECT * from users where uid=".$_GET['id'];
+				$res=mysql_query($query);
+				$fetch=mysql_fetch_array($res);
+				$name=$fetch['name'];
+				$email=$fetch['email'];
+				$gender=$fetch['gender'];
+				$contact=$fetch['contactno'];
+				$desc=$fetch['description'];
+				$credits=$fetch['credits'];
+				if($gender=="M")$sex="Male";
+				else $sex="Female";
+
+				echo "<p>Name: &nbsp; <strong>".$name." </strong></p>";
+				echo "<p>Email Id: &nbsp; <strong>".$email."</strong></p>";
+				echo "<p>Gender: &nbsp; <strong>".$sex." </strong></p>";
+				echo "<p>Contact: &nbsp; <strong>".$contact."</strong></p>";
+				echo "<p>Description: &nbsp; <strong>".$desc."</strong></p>";
+				echo "<p>Carbon Credits: &nbsp;<strong>".$credits."</strong><span class='label label-success'>".$badge."</span></p>"; 
+
+			}
+			else{
+				$email=$_SESSION['username'];
+				$query="SELECT * from users where email='".$email."'";
+				$res=mysql_query($query);
+				$fetch=mysql_fetch_array($res);
+				$name=$fetch['name'];
+				$email=$fetch['email'];
+				$gender=$fetch['gender'];
+				$contact=$fetch['contactno'];
+				$desc=$fetch['description'];
+				$credits=$fetch['credits'];
+				if($gender=="M")$sex="Male";
+				else $sex="Female";
+				echo "<p>Name: &nbsp; <strong>".$name." </strong></p>";
+				echo "<p>Email Id: &nbsp; <strong>".$email."</strong></p>";
+				echo "<p>Gender: &nbsp; <strong>".$sex." </strong></p>";
+				echo "<p>Contact: &nbsp; <strong>".$contact."</strong></p>";
+				echo "<p>Description: &nbsp; <strong>".$desc."</strong></p>";
+				echo "<p>Carbon Credits: &nbsp;<strong>".$credits."</strong><span class='label label-success'>".$badge."</span></p>"; 
+
+
+
+			}
+
+
+			?>
+			
+
+		</div>
+		<div class="span2"></div>
 </div>
 
 </div>

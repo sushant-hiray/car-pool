@@ -35,6 +35,14 @@ function getUserid(){
   $uid=$fields['uid'];
   return $uid;
 }
+function name(){
+  $emailid=$_SESSION['username'];
+  $query="SELECT uid,name from users where email='".$emailid."'";
+  $result = mysql_query($query);
+  $fields = mysql_fetch_array($result);
+  $uid=$fields['name'];
+  return $uid;
+}
 
 function getName($uid){
   $query="SELECT name from users WHERE uid=".$uid;
