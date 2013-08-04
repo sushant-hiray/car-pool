@@ -24,7 +24,7 @@
             <li class="divider-vertical"></li>
             <li><a href="notification.php"><i class="icon-list"></i> Notification</a></li>
             <li class="divider-vertical"></li>
-            <li><a href="notification.php"><i class="icon-list"></i> Leaderboard </a></li>
+            <li><a href="leaderboard.php"><i class="icon-list"></i> Leaderboard </a></li>
             <li class="divider-vertical"></li>
             <li><a href="profile.php"><i class="icon-wrench"></i> Profile</a></li>
             <li class="divider-vertical"></li>
