@@ -13,6 +13,9 @@
 	<?php
         if(isset($_GET['share']))
           echo("<div class=\"alert alert-info\">\nYour Ride was succesfully added! You can edit it from your profile\n</div>");
+        else if(isset($_GET['success']))
+          echo("<div class=\"alert alert-success\">\nYour request has been sent to  the Rider for approval, You may expect a call soon!.\n</div>");
+ 
         else if(isset($_GET['nerror']))
           echo("<div class=\"alert alert-error\">\nPlease enter all the details asked before you can continue!\n</div>");
       ?>
