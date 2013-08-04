@@ -35,4 +35,11 @@ function getUserid(){
   $uid=$fields['uid'];
   return $uid;
 }
+
+function getName($uid){
+  $query="SELECT name from users WHERE uid=".$uid;
+  $res=mysql_query($query);
+  $result=mysql_result($res, 0);
+  return $result;
+}
 ?>
