@@ -8,8 +8,8 @@
 <?php
     require_once('functions.php');
         connectdb();
-        //$userId = getUserid();
-        $userId ="1"; 
+        $userId = getUserid();
+        //$userId ="1"; 
         $query = 'SELECT * from notifications WHERE receiver="'.$userId.'" ORDER BY timestamp DESC;';
         $result = mysql_query($query) or die("error!!!")  ;
         
@@ -62,7 +62,7 @@
                 echo '<td>'. $carPoolRow["from"] . '=>'. $carPoolRow["to"] . '</td>';   
                 $status = $row["status"];
                 echo '<td>Feedback</td>';
-                if($status != "0"){ 
+                if($status != ""){ 
                     echo '<td>'.$status.'/5<td>';
                 }
                 else{
