@@ -15,7 +15,7 @@ if($type=="1"){
     $newType=3;
     $newStatus=$stat;
     $cid=$row["cid"];
-    $timeStamp=date('m/d/Y h:i:s a', time());
+    $timeStamp = date("Y-m-d H:i:s");
 
         $query = 'UPDATE notifications SET status="' .$stat. '" WHERE slno="' .$slno. '"';
         
