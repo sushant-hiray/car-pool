@@ -122,7 +122,7 @@ include('menu.php');
   if($uptime > $time){ ?><h2> <small>Request for this car</small></h2>
     <input type="hidden" id="formfrom" name="from" />
     <input type="hidden" id="formto" name="to" />
-    <input type="hidden" name="uid" value=<?php echo $uid; ?> />
+    <input type="hidden" name="uid" value=<?php echo getUserid(); ?> />
     <input type="hidden" name="cid" value=<?php echo $cid; ?> />
       <div class="btn-group">
                 <button id="from" class="btn dropdown-toggle" data-toggle="dropdown">From <span class="caret"></span></button>
