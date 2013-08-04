@@ -115,21 +115,21 @@ include('menu.php');
           else {
             
             echo '<table id="upcominglist" class="table table-hover">
-                <thead><tr> <th>Vehicle Type</th> <th> From </th> <th> To </th> <th> Starting Time</th><th>Connection Type</th></tr></thead>
+                <thead><tr><th>Id</th> <th>Vehicle Type</th> <th> From </th> <th> To </th> <th> Starting Time</th><th>Connection Type</th></tr></thead>
                 <tbody>';
 
                 $query="SELECT r1.cid from route r1 INNER JOIN route r2 ON r1.place='".$from."' AND r2.place='".$to."' AND r1.serialno < r2.serialno AND r1.cid=r2.cid";
           $result=mysql_query($query) or die(mysql_error());
         
            while($row = mysql_fetch_array($result)){
-              $query2="SELECT `vehicle`,`from`,`to`,`uptime` from offers WHERE id='".$row['cid']."' AND `uptime` >='".$_POST['uptime']."' AND `uptime` <='".$_POST['downtime']."'";
+              $query2="SELECT `id`,`vehicle`,`from`,`to`,`uptime` from offers WHERE id='".$row['cid']."' AND `uptime` >='".$_POST['uptime']."' AND `uptime` <='".$_POST['downtime']."'";
               $res=mysql_query($query2) or die(mysql_error());
               if(mysql_num_rows($res)==0){
               }
               else{
                 $result2=mysql_fetch_array($res);
               
-              echo "<tr><td>".$result2['vehicle']."</td><td>".$result2['from']."</td><td>".$result2['to']."</td><td>".$result2['uptime']."</td>";
+              echo "<tr><td>".$result2['id']."</td><td>".$result2['vehicle']."</td><td>".$result2['from']."</td><td>".$result2['to']."</td><td>".$result2['uptime']."</td>";
               if($from==$result2['from'] && $to==$result2['to']){echo "<td>Direct</td></tr>";}
                 else{echo "<td>Via</td></tr>";}
              }
@@ -168,6 +168,13 @@ include('menu.php');
       $('#downtimepicker').datetimepicker({
         format: 'yyyy-MM-dd hh:mm:ss',
       });
+
+
+      $('td:nth-child(1),th:nth-child(1)').hide();
+      $('#upcominglist').find('tr').click( function(){
+  var row = $(this).find('td:first').text();
+  window.location.href = "ride.php?id="+row;
+});
     </script>
     <?php 
     $query = "SELECT city_name from cities";
