@@ -8,7 +8,7 @@
 	else if(isset($_POST['action'])) {
 		$email = mysql_real_escape_string($_POST['email']);
 		if($_POST['action']=='login') {
-			if(trim($email) == "" or trim($_POST['password']) == "")
+			if(trim($_POST['email']) == "" or trim($_POST['password']) == "")
 				header("Location: login.php?nerror=1"); // empty entry
 			else {
 				// code to login the user and start a session
