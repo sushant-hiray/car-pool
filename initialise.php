@@ -130,7 +130,7 @@
       if(isset($_GET['installed'])) {
     ?>
         <div class="alert alert-success">car-pool is successfully initialised!</div>
-        You can login to the admin panel <a href="admin/">here</a> with the password <strong>admin</strong>.
+        You can login to the car-pool panel <a href="/">here</a>.
           <?php  }else if(!file_exists("dbinfo.php")){ ?>
       <h1><small>DB Details</small></h1>
     <form action="initialise.php" method="post">
